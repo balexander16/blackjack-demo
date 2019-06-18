@@ -17,7 +17,7 @@ public class Hand {
   private boolean soft;
   private boolean busted;
   private boolean blackjack;
-  private String status;
+  private String status = OTHER_STATUS;
 
   public Hand() {
     cards = new LinkedList<>();
@@ -29,7 +29,7 @@ public class Hand {
   }
 
   public List<Card> getCards() {
-    return Collections.unmodifiableList(cards);
+    return cards;
   }
 
   public int getScore() {
@@ -47,6 +47,7 @@ public class Hand {
   private boolean isBlackjack() {
     return blackjack;
   }
+
 
   @Override
   public String toString() {

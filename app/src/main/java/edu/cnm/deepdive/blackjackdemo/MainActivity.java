@@ -2,6 +2,7 @@ package edu.cnm.deepdive.blackjackdemo;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,6 +13,7 @@ import edu.cnm.deepdive.blackjackdemo.model.Deck;
 import edu.cnm.deepdive.blackjackdemo.model.Draw;
 import edu.cnm.deepdive.blackjackdemo.model.Hand;
 import edu.cnm.deepdive.blackjackdemo.service.DeckOfCardsService;
+import edu.cnm.deepdive.blackjackdemo.view.HandAdapter;
 import java.io.IOException;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
   private Deck deck;
   private Hand hand;
   private DeckOfCardsService service;
+  private RecyclerView handView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
       // TODO Handle click by drawing a card.
     });
     setupService();
+    handView = findViewById(R.id.hand_view);
     new CreateDeckTask().execute(DECKS_IN_SHOE);
 
   }
@@ -112,7 +116,9 @@ public class MainActivity extends AppCompatActivity {
       for(Card card : draw.getCards()){
         hand.addCard(card);
       }
-      // TODO update UI.
+      // TODO make this smarter!
+      HandAdapter adapter = new HandAdapter(MainActivity.this, hand.getCards());
+      handView.setAdapter(adapter);
     }
 
     @Override
