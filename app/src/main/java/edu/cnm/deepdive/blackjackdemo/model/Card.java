@@ -1,7 +1,10 @@
 package edu.cnm.deepdive.blackjackdemo.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Card implements Comparable<Card> {
 
+  @SerializedName("value")
   private final Rank rank;
   private final Suit suit;
 
